@@ -1,0 +1,21 @@
+{% extends 'homepage/navigate.html' %}
+{% block title %}Signup{% endblock %}
+
+{% block body %}
+<!--Signin-->
+<form action="{% url 'homepage:signup' %}" method="POST">
+    {% csrf_token %}
+    <div id="login-box">
+        <div class="left">
+            <h1 id="h1">Sign up</h1>
+                {% if error_message %}
+                <p style="color:white"><strong>{{ error_message }}</strong></p>
+                {% endif %}
+                <input type="text" name="username" placeholder="Username" />
+                <input type="text" name="email" placeholder="E-mail" />
+                <input type="password" name="password" placeholder="Password" />            
+                <input type="submit" name="signup_submit" value="Sign me up" />
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load staticfiles %}
+
+<head>
+    <link rel="shortcut icon" type="image/gif" href="{% static 'homepage/images/bk.png' %}" />
+    <title>{% block title %}Ebook{% endblock %}</title>
+</head>
+
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/style_year.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/modal.css' %}" />
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+    $('ul.nav li.dropdown').hover(function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+    }, function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+    });  
+});
+</script>
+
+<script>
+    jQuery(document).ready(function($) {
+var $modal = $('#modal');
+
+$('#launcher').on('click', openModal);
+
+$modal
+    //.on('click', closeModal)
+    .on('click', '.modal-close', closeModal)
+    .on('click', '.modal-dialog', function(event) {
+    event.stopPropagation();  // prevent closing the modal window when user clicks on the window itself
+});
+
+function closeModal() {
+    $modal.fadeOut();
+};
+
+function openModal() {
+    $modal.fadeIn();
+};
+});
+</script>   
+
+<!--navigation_bar-->
+<nav class="navbar navbar-default" id="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand" href="{%url 'homepage:index' %}" style="color: white" >Ebook</a>
+        </div>
+        <!--links-->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav" id="list">
+                <li class="dropdown" id="cat">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white">&nbsp;Category<span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="box">
+                    <li><a href="{% url 'homepage:fy'%}" id="li">First Year</a></li>
+                    <li><a href="{% url 'homepage:it'%}" id="li">Information technology</a></li>
+                    <li><a href="{% url 'homepage:mech'%}" id="li">Mechanical</a></li>
+                    <li><a href="{% url 'homepage:comp'%}" id="li">Computer technology</a></li>
+                    <li><a href="{% url 'homepage:extc'%}" id="li">Electronics and Telecommunication</a></li>
+                    <li><a href="{% url 'homepage:instru'%}" id="li">Instrumentation</a></li>
+                    <li><a href="{% url 'homepage:civil'%}" id="li">Civil</a></li>
+                    </ul>
+                </li>
+                <li class="" id="cat"><a href="{% url 'blog:blog-base'%}" style="color: white">&nbsp;Forum</a></li>
+                <!--li class=""  id="cat"><a href="#" style="color: white">&nbsp;About us</a></li>
+                <li class="" id="cat"><a href="#" style="color: white">&nbsp;Help</a></li-->
+            </ul>
+
+            <form class="navbar-form navbar-left" role="search" method="GET" action="{% url 'homepage:search' %}">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search" name="q" value="{{request.GET.q}}" placeholder="Search">
+                        <button class="search_icon" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" id="list">
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'blog:post-create' %}" style="color:white">New Post</a></li>
+                <li><a href="{% url 'profile' %}" style="color:white">Profile</a></li>
+                <li><a href="{% url 'homepage:log_out' %}" style="color:white" >&nbsp; Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'homepage:log_in' %}?next={{request.path}}" style="color:white" >&nbsp; Login</a></li>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+{% block body %}
+{% endblock %}
+</div>
+
+<div id="modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <button type="button" class="modal-close" tabindex="-1">&times;</button>
+        <h2>Just 1 more step!</h2><br/><p>To download the book you need to <a href="{% url 'homepage:log_in' %}?next={{request.path}}">login&nbsp;<img src="https://img.icons8.com/ultraviolet/40/000000/enter-2.png"></a></p>
+    </div>
+</div>

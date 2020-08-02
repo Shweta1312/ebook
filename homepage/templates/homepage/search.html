@@ -1,0 +1,92 @@
+{% extends 'homepage/navigate.html' %}
+{% block title %}Search{% endblock %}
+
+{% block body %}
+    <div class="row" id="section">
+        <div class="container-fluid">&nbsp;
+            <!--Search for year or branch-->
+            {% if category %}
+            <div>
+                <p class="well" id="title">Subjects</p>
+                </div>
+                <div class="container-fluid">
+                    {% for category in category %}
+                        <div class="col-sm-12">
+                        <hr/>
+                        <p id="title1" style="font-size: 30px;">{{category.year}}<a href="{% url 'homepage:more' category.year%}" id="more">See more.....</a></p>
+                        </div>
+        
+                        {% for subject in category.subject_set.all|slice:":4"%}
+                            <div class="col-sm-3" > &nbsp;
+                                    <a href="{% url 'homepage:seperate' subject.sub_title %}">
+                                        <img src="{{ subject.sub_logo.url }}" class="img-responsive" id="blocks">
+                                    </a>
+                                    <div class="caption" id="pic">
+                                        <p>{{ subject.sub_title }}</p>&nbsp;
+                                    </div>
+                            </div>
+                        {% endfor %}
+                    
+                    {% endfor %}
+                </div>
+            <!--Search for Subject_title-->
+            {% elif subject %}
+                {% for subject in subject %}
+                    <div class="col-sm-12">
+                    <p id="title1" style="font-size: 50px;">{{subject.sub_title}}</p>
+                    </div>
+                    <div class="container-fluid">
+                        {% for bk in subject.book_set.all %}
+                        &nbsp;<img src="{{ bk.book_logo.url }}" class="img-responsive" id="sep_cover"/>
+                        <div class="caption" id="pic">
+                            <div >
+                                <p id="sep_detail">{{ bk.book_title }}</p>&nbsp;
+                                <p id="sep_detail">{{ bk.author }}</p>&nbsp;<p id="sep_detail">{{ bk.book_detail }}</p>
+                                {% if user.is_authenticated %}
+                                <a href="{{ bk.book.url }}" class="btn btn-info btn-lg" id="sep_download">
+                                    <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                                {% else %}
+                                <a href="#" class="btn btn-info btn-lg" style="margin-right: 5%;margin-top: -8%;float: right;" id="launcher">
+                                        <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                                {% endif %}
+                            </div>
+                            &nbsp;
+                            <hr/>
+                        {% endfor %}
+                {% endfor %}
+
+
+            <!--Search for Bk_title or author-->
+            {% elif book %}
+                {% for bk in book%}
+                    <div>
+                        <p id="title">{{ bk.book_title }}</p>
+                    </div>&nbsp;
+                    <div class="container-fluid">
+                        <img src="{{ bk.book_logo.url }}" class="img-responsive" id="bk_cover"></a>
+                        <div class="caption" id="pic">
+                            <div id="detail">
+                                <p>{{ bk.author }}</p>&nbsp;<p>{{ bk.subject.sub_title }}</p>&nbsp;<p>{{ bk.book_detail }}</p>
+                                        {% if user.is_authenticated %}
+                                        <a href="{{ bk.book.url }}" class="btn btn-info btn-lg" id="download">
+                                            <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                                        {% else %}
+                                        <a href="{% url 'homepage:log_in' %}" class="btn btn-info btn-lg" id="download">
+                                                <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                                        {% endif %}
+                            </div>
+                        </div>                   
+                    </div>&nbsp;
+                {% endfor %}
+            </div>
+        </div>
+
+            {% else %}
+            <div class="row" id="error_box">
+                <div class="container-fluid">
+                    <p id="error">Sorry....Couldn't find any match.</p>
+                    <p id="error1">Try typing something else</p>
+                </div>
+            </div>
+            {% endif %} 
+{% endblock %}

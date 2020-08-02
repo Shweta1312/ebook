@@ -1,0 +1,26 @@
+{% extends 'homepage/navigate.html' %}
+{% block title %}Subject{% endblock %}
+
+{% block body %}
+    <div class="row" id="section">
+        <div>
+        <p id="title" class="well">Books ({{category.year}})</p>
+        </div>
+        <div class="container-fluid">
+            {% for subject in category.subject_set.all %}
+                <div class="col-sm-12">
+                <hr/>
+                <p id="title1" style="font-size: 40px;">{{subject.sub_title}}</p>
+                </div>
+                {% for bk in subject.book_set.all %}
+                    <div class="col-sm-4 col-lg-2" > &nbsp;
+                                <a href="{% url 'homepage:bk_detail' bk.book_title %}"><img src="{{ bk.book_logo.url }}" class="img-responsive" id="covers">
+                            <div class="caption" id="pic">
+                                <p>{{ bk.book_title }}</p></a><p>{{ bk.author }}</p>&nbsp;
+                            </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>  
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'homepage/navigate.html' %}
+{% block title %}{{subject.sub_title}}{% endblock %}
+
+{% block body %}
+    <div class="row" id="section">
+        <div>
+        <p id="title" class="well">{{subject.sub_title}}</p>
+        </div>&nbsp;
+        <div class="container-fluid">
+                {% for bk in subject.book_set.all %}
+                &nbsp;<img src="{{ bk.book_logo.url }}" class="img-responsive" id="sep_cover"/>
+                <div class="caption" id="pic">
+                    <div >
+                        <p id="sep_detail">{{ bk.book_title }}</p>&nbsp;
+                        <p id="sep_detail">{{ bk.author }}</p>&nbsp;<p id="sep_detail">{{ bk.book_detail }}</p>
+                        {% if user.is_authenticated %}
+                        <a href="{{ bk.book.url }}" class="btn btn-info btn-lg" id="sep_download">
+                            <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                        {% else %}
+                        <a href="#" class="btn btn-info btn-lg" style="margin-right: 5%;margin-top: -8%;float: right;" id="launcher">
+                                <span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                        {% endif %}
+                    </div>
+                    &nbsp;
+                    <hr/>
+                {% endfor %}
+        </div>
+    </div>  
+
+
+{% endblock %}

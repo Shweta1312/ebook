@@ -1,0 +1,97 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+
+#blocks{
+    width:270px;
+    height: 170px;
+}
+
+#covers{
+    width:auto;
+    height: 170px;
+}
+#section{
+    background-color:white;
+}
+#more{
+    float:right;
+    font-size: 18px;
+    margin-top:45px;
+    margin-right:30px;
+}
+#title{
+    margin: 0 0 20px 0;
+    font-size: 50px;
+    color: black;
+    margin-left:40px;
+    margin-top:10px;
+    font-weight: 300;
+}
+#title1{
+    margin: 0 0 20px 0;
+    color: black;
+    margin-left:20px;
+    top:7px;
+    font-weight: 300;
+}
+#pic{
+    margin-top:10px;
+}
+#ebk{
+    font-size: 30px;
+    margin-left:2%;
+    margin-top:10px;
+    font-weight: bold;
+}
+
+#bk_cover{
+    width:auto;
+    height: 200px;
+    float:left;
+    margin-left:1%;
+}
+
+#detail{
+    margin-left: 18%;
+}
+
+#download{
+    margin-top: 4%;
+    margin-left: 3%;
+}
+#launcher{
+    margin-top: 4%;
+    margin-left: 5%;
+}
+#sep_cover{
+    width:auto;
+    height: 200px;
+    float:left;
+    margin-left:2%;
+}
+
+#sep_detail{
+    margin-left: 22%;
+}
+
+#sep_download{
+    margin-right: 5%;
+    margin-top: -8%;
+    float: right;
+}
+
+#error_box{
+    height: 50%;
+}
+
+#error{
+    font-size: 170%;
+    margin-left:30%;
+    margin-top: 8%;
+}
+
+#error1{
+    font-size: 130%;
+    margin-left:35%;
+    margin-top: 2%;
+}
+

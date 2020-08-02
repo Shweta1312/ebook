@@ -1,0 +1,30 @@
+{% extends 'homepage/navigate.html' %}
+{% block title %}Branch{% endblock %}
+
+{% block body %}
+    <div class="row" id="section">
+        <div>
+        <p class="well" id="title">Subjects</p>
+        </div>
+        <div class="container-fluid">
+            {% for category in category %}
+                <div class="col-sm-12">
+                <hr/>
+                <p id="title1" style="font-size: 30px;">{{category.year}}<a href="{% url 'homepage:more' category.year%}" id="more">See more.....</a></p>
+                </div>
+
+                {% for subject in category.subject_set.all|slice:":4"%}
+                    <div class="col-sm-3" > &nbsp;
+                            <a href="{% url 'homepage:seperate' subject.sub_title %}">
+                                <img src="{{ subject.sub_logo.url }}" class="img-responsive" id="blocks">
+                            </a>
+                            <div class="caption" id="pic">
+                                <p>{{ subject.sub_title }}</p>&nbsp;
+                            </div>
+                    </div>
+                {% endfor %}
+            
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
